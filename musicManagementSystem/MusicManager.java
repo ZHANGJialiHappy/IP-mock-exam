@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -89,36 +90,41 @@ public class MusicManager {
     }
 
     public void playTopHits(List<Song> l) {
-        // Sort Method1: sort by likes, then artist, then title
-        // Collections.sort(l);
 
-        // Sort Method2:
-        // l.sort((s1, s2) ->
-        // Integer.valueOf(s2.getLikes()).compareTo(Integer.valueOf(s1.getLikes())));
+        int songQuantity = 2;
 
         // Method1:
-        int songQuantity = 20;
         if (l.size() >= songQuantity) {
+
+            // //Sort Method1: sort by likes, then artist, then title
+            // Collections.sort(l);
+
+            // //Sort Method2:
+            // l.sort((s1, s2) ->
+            // Integer.valueOf(s2.getLikes()).compareTo(Integer.valueOf(s1.getLikes())));
+
             // Sort Method3:
             l.sort((s1, s2) -> s2.getLikes() - s1.getLikes());
-        } else {
-            songQuantity = l.size();
         }
-        for (int i = 0; i < songQuantity; i++) {
-            l.get(i).like();
-            l.get(i).play();
-            l.remove(i);
-            i--;
-            songQuantity--;
+        int count = 0;
+        Iterator<Song> it = l.iterator();
+        while (it.hasNext() && count < songQuantity) {
+            Song song = it.next();
+            song.like();
+            song.play();
+            it.remove();
+            count++;
         }
 
-        // Method2:
-        // Comparator<Song> comp = l.size() < 20 ? Comparator.comparingInt(s -> 0)
+        // // Method2:
+        // Comparator<Song> comp = l.size() < songQuantity ? Comparator.comparingInt(s
+        // -> 0)
         // : Comparator.comparingInt(Song::getLikes).reversed();
+
         // l.stream()
         // .sorted(comp)
-        // .limit(20)
-        // .collect(Collectors.toList())
+        // .limit(songQuantity)
+        // .toList()
         // .forEach(s -> {
         // s.like();
         // s.play();
@@ -144,10 +150,8 @@ public class MusicManager {
         m.addSong(a);
         m.addSong(b);
         m.addSong(c);
-
-        System.out.println(m.artistSongs());
-        // List<Song> l = new ArrayList<>(Arrays.asList(a, b, c, d, e, f, g));
-        // m.playTopHits(l);
+        List<Song> l = new ArrayList<>(Arrays.asList(a, b, c, d, e, f, g));
+        m.playTopHits(l);
     }
 
 }
