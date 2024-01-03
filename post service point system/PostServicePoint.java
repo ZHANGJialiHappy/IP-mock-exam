@@ -74,33 +74,52 @@ public class PostServicePoint {
     }
 
     public int totalweight() {
+        // Method1:
         int totalWeight = 0;
         for (Item i : processedItems) {
             totalWeight += i.getWeight();
         }
+        // //Method2:
+        // int totalWeight = processedItems.stream()
+        // .map(i -> i.getWeight())
+        // .reduce(0, (runningSum, weight) -> runningSum + weight);
         return totalWeight;
     }
 
     public Map<String, Integer> checkCategories() {
         Map<String, Integer> categoriesMap = new HashMap<>();
         for (Item i : processedItems) {
-            String category = i.getCategory();
-            int number = 1;
-            if (categoriesMap.containsKey(category)) {
-                number += categoriesMap.get(category);
-            }
-            categoriesMap.put(category, number);
+            // //Method1:
+            // String category = i.getCategory();
+            // int number = 1;
+            // if (categoriesMap.containsKey(category)) {
+            // number += categoriesMap.get(category);
+            // }
+            // categoriesMap.put(category, number);
+
+            // Method2:
+            categoriesMap.merge(i.getCategory(), 1, Integer::sum);
+
+            // // Method3:
+            // categoriesMap.merge(i.getCategory(), 1, (oldValue, newValue) -> oldValue +
+            // newValue);
+
         }
         return categoriesMap;
     }
 
     public void removeCategory(String c) {
-        Iterator<Item> it = processedItems.iterator();
-        while (it.hasNext()) {
-            Item item = it.next();
-            if (item.getCategory().equals(c)) {
-                it.remove();
-            }
-        }
+        // // Method1:
+        // Iterator<Item> it = processedItems.iterator();
+        // while (it.hasNext()) {
+        // Item item = it.next();
+        // if (item.getCategory().equals(c)) {
+        // it.remove();
+        // }
+        // }
+        // Method2:
+        processedItems = processedItems.stream()
+                .filter(i -> !i.getCategory().equals(c))
+                .toList();
     }
 }

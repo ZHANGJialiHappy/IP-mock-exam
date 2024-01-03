@@ -24,7 +24,7 @@ public class Main {
         System.out.println(postoffice.totalweight());
         System.out.println(postoffice.checkCategories());
         postoffice.removeCategory("a");
-        System.out.println("...");
+        // System.out.println("...");
         System.out.println(postoffice.checkCategories());
     }
 }
