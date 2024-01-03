@@ -49,8 +49,8 @@ public class Car {
             mileage += d;
             gasLevel -= gasRequired;
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 }

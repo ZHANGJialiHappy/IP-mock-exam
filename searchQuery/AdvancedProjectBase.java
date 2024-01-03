@@ -11,9 +11,9 @@ public class AdvancedProjectBase extends ProjectBase {
     }
 
     public Set<String> search(String query) {
-        String[] querys = query.replaceAll("\\s+", "").split(",");
+        String[] queryTerms = query.replaceAll("\\s+", "").split(",");
         Set<String> titles = new HashSet<>();
-        for (String q : querys) {
+        for (String q : queryTerms) {
             titles.addAll(super.search(q));
         }
         return titles;
@@ -23,5 +23,11 @@ public class AdvancedProjectBase extends ProjectBase {
         List<String> a = new ArrayList<>(Arrays.asList("1", "2"));
         super.getProjectTitles().addAll(a);
         return super.getProjectTitles();
+    }
+
+    public static void main(String[] args) {
+        List<String> projectTitles = new ArrayList<>(Arrays.asList("a", "b"));
+        ProjectBase a = new AdvancedProjectBase(projectTitles);
+        System.out.println(a.getProjectTitles());
     }
 }

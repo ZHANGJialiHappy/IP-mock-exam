@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -36,6 +38,7 @@ public class ServiceCenter {
 
     public void serviceCar(Car c) {
         if (c.needsService()) {
+            c.service();
             System.out.println(String.format("Car %s serviced for %d dollars", c.getPlate(), fillGas(c) + 500));
         }
     }
@@ -50,11 +53,19 @@ public class ServiceCenter {
 
     public int findHighestPriority() {
         int indexOfCar = -1;
-        int highestPriority = 0;
+        // // Method1:
+        // int highestPriority = 0;
+        // for (int i = 0; i < serviceQueue.size(); i++) {
+        // int priority = carsPriority.get(serviceQueue.get(i).getPlate());
+        // if (priority > highestPriority) {
+        // highestPriority = priority;
+        // indexOfCar = i;
+        // }
+        // }
+        // Method2:
+        int highestPriority = Collections.max(carsPriority.values());
         for (int i = 0; i < serviceQueue.size(); i++) {
-            int priority = carsPriority.get(serviceQueue.get(i).getPlate());
-            if (priority > highestPriority) {
-                highestPriority = priority;
+            if (carsPriority.get(serviceQueue.get(i).getPlate()).equals(highestPriority)) {
                 indexOfCar = i;
             }
         }
@@ -62,13 +73,20 @@ public class ServiceCenter {
     }
 
     public void serviceAllWithPriority() {
+        // //Method1:
         // while (!serviceQueue.isEmpty()) {
         // Car carWithHighstPriority = serviceQueue.get(findHighestPriority());
         // serviceCar(carWithHighstPriority);
         // serviceQueue.remove(findHighestPriority());
         // }
 
+        // //Method2:
+        // Sort Method1:
         serviceQueue.sort((c1, c2) -> carsPriority.get(c2.getPlate()).compareTo(carsPriority.get(c1.getPlate())));
+        // //Sort Method2:
+        // Collections.sort(this.serviceQueue,
+        // Comparator.comparingInt(car -> this.carsPriority.get(((Car)
+        // car).getPlate())).reversed());
         serviceAll();
 
     }
