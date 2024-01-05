@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class RegUser extends User {
     private int region;
 
@@ -24,5 +22,4 @@ public class RegUser extends User {
             super.setIP(ip);
         }
     }
-
 }

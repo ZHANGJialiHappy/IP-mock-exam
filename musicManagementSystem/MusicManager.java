@@ -117,19 +117,18 @@ public class MusicManager {
         }
 
         // // Method2:
-        // Comparator<Song> comp = l.size() < songQuantity ? Comparator.comparingInt(s
-        // -> 0)
-        // : Comparator.comparingInt(Song::getLikes).reversed();
+        Comparator<Song> comp = l.size() < songQuantity ? Comparator.comparingInt(s -> 0)
+                : Comparator.comparingInt(Song::getLikes).reversed();
 
-        // l.stream()
-        // .sorted(comp)
-        // .limit(songQuantity)
-        // .toList()
-        // .forEach(s -> {
-        // s.like();
-        // s.play();
-        // l.remove(s);
-        // });
+        l.stream()
+                .sorted(comp)
+                .limit(songQuantity)
+                .toList()
+                .forEach(s -> {
+                    s.like();
+                    s.play();
+                    l.remove(s);
+                });
     }
 
     public static void main(String[] args) {
