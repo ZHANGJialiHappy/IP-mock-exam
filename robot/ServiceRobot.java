@@ -32,6 +32,7 @@ public class ServiceRobot extends Robot {
     public void service(int n) {
         int count = 0;
         Scanner sc = new Scanner(System.in);
+        // count<n should be before sc.hasNextLine(), in case extra input;
         while (count < n && sc.hasNextLine()) {
             String taskName = sc.nextLine();
             if (!taskInfo.containsKey(taskName)) {
