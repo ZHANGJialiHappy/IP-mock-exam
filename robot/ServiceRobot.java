@@ -23,18 +23,21 @@ public class ServiceRobot extends Robot {
                 // System.out.println(taskInfo);
             }
         }
-        sc.close();
+        // Scanner can not be closed, otherwise sc.hasNext() will become false, no
+        // matter if another scanner is newed.
+
+        // sc.close();
     }
 
     public void service(int n) {
         int count = 0;
         Scanner sc = new Scanner(System.in);
-        while (sc.hasNextLine() && count < n) {
+        while (count < n && sc.hasNextLine()) {
             String taskName = sc.nextLine();
             if (!taskInfo.containsKey(taskName)) {
                 System.out.println(String.format("Sorry the task %s is not among my definedtasks!", taskName));
             } else {
-                if (performTask(taskInfo.get(taskName))) {
+                if (super.performTask(taskInfo.get(taskName))) {
                     System.out.println(String.format("performing task %s", taskName));
                 } else {
                     System.out.println("Sorry I do not have enough battery");
@@ -42,7 +45,10 @@ public class ServiceRobot extends Robot {
             }
             count++;
         }
-        sc.close();
+        // Scanner can not be closed, otherwise sc.hasNext() will become false, no
+        // matter if another scanner is newed.
+
+        // sc.close();
 
     }
 
@@ -53,13 +59,20 @@ public class ServiceRobot extends Robot {
     }
 
     public static void main(String[] args) {
-        Robot r = new Robot(10, 20, 1);
-        System.out.println(r.performTask(5));
-        System.out.println(r.timeToCharge());
+        // Robot r = new Robot(10, 20, 1);
+        // System.out.println(r.performTask(5));
+        // System.out.println(r.timeToCharge());
         ServiceRobot s = new ServiceRobot(10, 30, 1);
         s.defineTask();
-        s.charge();
+        System.out.println("...");
+        s.defineTask();
+        s.defineTask();
 
-        s.service(3);
+        // s.charge();
+        System.out.println("...");
+        s.service(2);
+        s.defineTask();
+        s.service(2);
+
     }
 }

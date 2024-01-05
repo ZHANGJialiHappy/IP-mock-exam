@@ -12,7 +12,7 @@ public class Robot {
     }
 
     public boolean performTask(int requiredEnergy) {
-        boolean isEnergyEnough = requiredEnergy < batteryLevel;
+        boolean isEnergyEnough = requiredEnergy <= batteryLevel;
         if (isEnergyEnough) {
             batteryLevel -= requiredEnergy;
         }

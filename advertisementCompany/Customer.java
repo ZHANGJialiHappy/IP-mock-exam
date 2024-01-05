@@ -37,19 +37,14 @@ public class Customer {
     }
 
     public void readAdvertisements(int n) {
-        if (advertisements.size() <= n) {
-            for (int i = advertisements.size() - 1; i >= 0; i--) {
-                System.out.println(advertisements.get(i));
-                advertisements.remove(i);
-            }
-        } else {
-            int endIndex = advertisements.size() - n;
-            for (int i = advertisements.size() - 1; i >= endIndex; i--) {
-                System.out.println(advertisements.get(i));
-                advertisements.remove(i);
-            }
+        int endIndex = advertisements.size() - n;
+        if (endIndex < 0) {
+            endIndex = advertisements.size();
         }
-
+        for (int i = advertisements.size() - 1; i >= endIndex; i--) {
+            System.out.println(advertisements.get(i));
+            advertisements.remove(i);
+        }
     }
 
 }
