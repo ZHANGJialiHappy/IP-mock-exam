@@ -33,7 +33,7 @@ public class ServiceRobot extends Robot {
         int count = 0;
         Scanner sc = new Scanner(System.in);
         // count<n should be before sc.hasNextLine(), in case extra input;
-        while (count < n && sc.hasNextLine()) {
+        while (count < n) {
             String taskName = sc.nextLine();
             if (!taskInfo.containsKey(taskName)) {
                 System.out.println(String.format("Sorry the task %s is not among my definedtasks!", taskName));
